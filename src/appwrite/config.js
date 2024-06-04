@@ -1,5 +1,5 @@
-import conf from "../config/conf.js";
-import config from "../config/conf.js";
+import conf from "../conf/conf.js";
+// import config from "../config/conf.js";
 import { Client, Account,ID,Databases,Storage,Query} from 'appwrite';
 
 
@@ -16,7 +16,7 @@ export class Service{
         this.bucket=new Storage(this.client);
     }
 
-    async createPost({title,slug,content,featuredImage,status,userId}){
+    async createPost({title,slug,featuredimage,status,userid}){
         try{
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -24,18 +24,19 @@ export class Service{
                 slug,
                 {
                     title,
-                    content,
-                    featuredImage,
+                    
+                    featuredimage,
                     status,
-                    userId,
+                    userid,
                 }
             )
         } catch(error){
+            console.log(error);
             console.log("Appwrite service :: createPost :: error");
         }
     }
 
-    async updatePost(slug,{title,content,featuredImage,status}){
+    async updatePost(slug,{title,featuredimage,status}){
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
@@ -43,8 +44,8 @@ export class Service{
                 slug,
                 {
                     title,
-                    content,
-                    featuredImage,
+                    
+                    featuredimage,
                     status,
                 }
             )
